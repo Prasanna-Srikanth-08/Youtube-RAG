@@ -42,7 +42,7 @@ def collection_exists(chroma_client,name):
     try:
         chroma_client.get_collection(name)
         return True
-    except RuntimeError:
+    except chromadb.errors.NotFoundError:
         return False
 
 def rag_query(user_query):
