@@ -18,6 +18,7 @@ def get_youtube_transcript(video_url):
         output = ""
         for snippet in result:
             output += snippet.text
+        print(output)
         return output
     
     except Exception as e:
