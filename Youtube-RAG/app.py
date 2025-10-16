@@ -9,6 +9,7 @@ if 'doc_chunk' not in st.session_state:
     st.session_state.doc_chunk = None
 
 def get_youtube_transcript(video_url):
+    print("Inside get_youtube_transcript")
     video_id = video_url.split("v=")[-1].split("&")[0]
     print(video_id)
     try:
@@ -29,6 +30,7 @@ def chunk_text(text,chunk_size=300):
     return ["".join(words[i:i+chunk_size]) for i in range(0,len(words),chunk_size)]
 
 def extract_text_and_store_chunk_in_document(url):
+    print("Inside extract_text_and_store_chunk_in_document")
     content = get_youtube_transcript(url)
     chunks = chunk_text(content)
     chroma_client=chromadb.Client()
@@ -70,6 +72,7 @@ youtube_url = st.text_input("Enter YouTube video URL:")
 
 if st.button("Process Video"):
     with st.spinner("Fetching transcript and building index..."):
+        print("before entering extract_text_and_store_chunk_in_document")
         doc_chunk = extract_text_and_store_chunk_in_document(youtube_url)
         if doc_chunk:
             st.session_state['doc_chunk'] = doc_chunk
